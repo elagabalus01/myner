@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>929</width>
+    <width>879</width>
     <height>562</height>
    </rect>
   </property>
@@ -71,15 +71,15 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>873</width>
-             <height>434</height>
+             <width>823</width>
+             <height>512</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_2">
+            <item row="2" column="1">
+             <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>Estructura</string>
+               <string>Datos faltantes</string>
               </property>
              </widget>
             </item>
@@ -90,21 +90,67 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QTableWidget" name="estruct_table"/>
-            </item>
-            <item row="1" column="0" colspan="2">
-             <widget class="QTableWidget" name="preview_table"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Datos faltantes</string>
+            <item row="3" column="1">
+             <widget class="QTableWidget" name="missed_table">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QTableWidget" name="missed_table"/>
+            <item row="3" column="0">
+             <widget class="QTableWidget" name="estruct_table">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Estructura</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QTableWidget" name="preview_table">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <widget class="QFrame" name="graficas">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <widget class="QLabel" name="paso_3_label">
+                 <property name="text">
+                  <string>Características numéricas</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -126,7 +172,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>929</width>
+     <width>879</width>
      <height>27</height>
     </rect>
    </property>
@@ -135,6 +181,8 @@
      <string>Archivo</string>
     </property>
     <addaction name="actionAbrir"/>
+    <addaction name="actionCerrar"/>
+    <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuArchivo"/>
   </widget>
@@ -142,6 +190,16 @@
   <action name="actionAbrir">
    <property name="text">
     <string>Abrir</string>
+   </property>
+  </action>
+  <action name="actionCerrar">
+   <property name="text">
+    <string>Cerrar</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
    </property>
   </action>
  </widget>

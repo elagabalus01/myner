@@ -1,3 +1,5 @@
+rebuild:build run
+
 run:
 	echo "Corriendo el programa"
 	python -B app.py
