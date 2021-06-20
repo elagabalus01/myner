@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.uic import loadUi
 
-# from prueba import Ui_MainWindow
 from prueba_2 import Ui_MainWindow
 import csv
 class Window(QMainWindow, Ui_MainWindow):
