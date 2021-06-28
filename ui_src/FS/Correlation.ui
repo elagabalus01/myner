@@ -28,6 +28,12 @@
    </property>
    <item row="0" column="0">
     <widget class="QScrollArea" name="scrollArea">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -41,7 +47,7 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="correlation_grid">
-       <item row="0" column="0">
+       <item row="0" column="0" alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="label">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

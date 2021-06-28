@@ -2,3 +2,8 @@ from .MainWindow import MainWindow
 from .FS.FeatureSelectionWidget import FeatureSelectionWidget
 from .FS.VisualEvaluationWidget import VisualEvaluationWidget
 from .FS.CorrelationWidget import CorrelationWidget
+from .FS.PCA_Widget import PCA_Widget
+from .EDA.EDA_Widget import EDA_Widget
+from .Kmeans.ElbowWidget import ElbowWidget
+from .Kmeans.KmeansWidget import KmeansWidget
+from .Kmeans.ClustersWidget import ClustersWidget

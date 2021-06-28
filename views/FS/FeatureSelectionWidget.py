@@ -5,3 +5,4 @@ class FeatureSelectionWidget(QWidget,Ui_FeatureSelectionWidget):
     def __init__(self,parent=None):
         super().__init__(parent=parent)
         self.setupUi(self)
+        self.splitter.setStretchFactor(0,7)

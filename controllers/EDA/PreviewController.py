@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QTableWidgetItem,QAbstractItemView
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QHeaderView
 class PreviewController:
     def __init__(self,model,view):
         self.model=model
@@ -13,9 +14,9 @@ class PreviewController:
             self.view.preview_table.setEditTriggers(
                 QAbstractItemView.NoEditTriggers
             )
-            # #Ocualta los headers
-            # self.preview_table.verticalHeader().hide()
-            self.view.preview_table.verticalHeader().setDefaultAlignment(Qt.AlignCenter)
+            self.view.preview_table.verticalHeader().setDefaultAlignment(
+                Qt.AlignCenter
+            )
             n_col=len(self.model.data.columns)
             self.view.preview_table.setColumnCount(n_col)
             self.view.preview_table.setRowCount(n_rows)
@@ -30,3 +31,8 @@ class PreviewController:
                     # print(value)
                     item=QTableWidgetItem(str(value))
                     self.view.preview_table.setItem(j,i,item)
+
+            self.view.preview_table.resizeColumnsToContents()
+            self.view.preview_table.resizeRowsToContents()
+            # header = self.view.preview_table.horizontalHeader()
+            # header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
