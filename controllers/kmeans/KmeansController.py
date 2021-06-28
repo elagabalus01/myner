@@ -22,7 +22,7 @@ class KmeansController(Observer):
     def bind_signals(self):
         self.elbow.btn_calcular.pressed.connect(self.show_kmeans)
         self.clusters.btn_elbow.pressed.connect(self.show_elbow)
-        
+
 
     def show_kmeans(self):
         self.view.widget_list.setCurrentIndex(1)
@@ -33,6 +33,4 @@ class KmeansController(Observer):
     def notify(self,model,*args,**kwargs):
         self.ctl_elbow.calcular()
         self.ctl_clusters.load_model()
-
-
-
+        self.view.loaded.emit(40)

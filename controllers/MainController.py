@@ -14,23 +14,29 @@ class MainController:
         # self.model=model
         self.view=MainWindow()
         self.model=DataAdapter(None)
+
+        #AGREGANDO FILE MENU CONTROLLER
+        self.menu_controller=MenuController(self.view,self.model)
+        self.view.tabWidget.hide()
+
         #EXPLORATORY DATA ANALYSIS
         eda_view=EDA_Widget()
         self.view.tabWidget.insertTab(1,eda_view,"Análisis exploratorio")
         self.eda_ctl=EDA_Controller(self.model,eda_view)
-        
+        eda_view.loaded.connect(self.menu_controller.aumentar_carga)
+
         #AGREGANDO MODULO DE VISUAL SELECTION
         fs_view=FeatureSelectionWidget()
         self.view.tabWidget.insertTab(2,fs_view,"Selección de características")
         self.fs_ctl=FS_Controller(self.model,fs_view)
+        fs_view.loaded.connect(self.menu_controller.aumentar_carga)
 
         #AGREGANDO MODULO DE K-MEANS
         km_view=KmeansWidget()
         self.view.tabWidget.insertTab(3,km_view,"K-means")
         self.km_ctl=KmeansController(self.model,km_view)
+        km_view.loaded.connect(self.menu_controller.aumentar_carga)
 
-        #AGREGANDO FILE MENU CONTROLLER
-        self.menu_controller=MenuController(self.view,self.model)
 
 
     def run(self):

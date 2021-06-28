@@ -26,7 +26,7 @@ class VisualEvaluationController:
     def set_graph(self,event):
         if self.model.file:
             self.plot()
-    
+
     def plot(self):
         x_label=self.view.eje_x_box.currentText()
         y_label=self.view.eje_y_box.currentText()
@@ -48,9 +48,14 @@ class VisualEvaluationController:
     def set_model(self):
         self.view.eje_x_box.clear()
         self.view.eje_y_box.clear()
+        self.view.dependiente_box.clear()
+
+        for feature in self.model.objects:
+            self.view.dependiente_box.addItem(feature)
+
         for feature in self.model.numeric_columns():
             self.view.eje_x_box.addItem(feature)
             self.view.eje_y_box.addItem(feature)
-        for feature in self.model.data.columns:
             self.view.dependiente_box.addItem(feature)
+
         self.plot()

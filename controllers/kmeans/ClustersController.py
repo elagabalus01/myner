@@ -56,13 +56,17 @@ class ClustersController():
         self.plot()
 
     def load_model(self):
+        self.view.feature_x_box.clear()
+        self.view.feature_y_box.clear()
+        self.view.feature_z_box.clear()
+
         for feature in self.model.numeric_columns():
             self.view.feature_x_box.addItem(feature)
             self.view.feature_y_box.addItem(feature)
             self.view.feature_z_box.addItem(feature)
         self.view.feature_z_box.setCurrentIndex(0)
         self.make_clusters()
-    
+
     def calcular_centroides(self):
         data=self.model.clean_data
         self.centroides=self.km.cluster_centers_
@@ -114,7 +118,7 @@ class ClustersController():
         except AttributeError:
             print("No tenía caché")
 
-            
+
     def set_centroides_table(self):
         table=self.view.centroides_table
         data=self.centroides
@@ -135,4 +139,5 @@ class ClustersController():
                     table.setItem(j,i,item)
 
         header = table.horizontalHeader()
-
+        table.resizeColumnsToContents()
+        table.resizeRowsToContents()

@@ -52,12 +52,11 @@ class FS_Controller(Observer):
             if i==cols+1:
                 i=0
                 j=j+1
-    
+
     def notify(self,model,*args,**kwargs):
         print(f"Abriendo el modelo desde FS controller: {model}")
         self.set_features()
         self.ctl_visual.set_model()
         self.ctl_corr.show_heatmap()
         self.ctl_pca.set_model()
-        
-        
+        self.view.loaded.emit(30)

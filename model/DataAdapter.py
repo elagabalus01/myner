@@ -8,6 +8,7 @@ class DataAdapter(Observable):
         self.clean_data=None
         self.num_cols=None
         self.str_cols=None
+        self.objects=None
         self.file=filepath
         if filepath:
             # self.data=pd.read_csv(filepath)
@@ -17,27 +18,29 @@ class DataAdapter(Observable):
     def loadFile(self,filepath):
         self.file=filepath
         self.data=pd.read_csv(filepath)
-        self.num_cols,self.str_cols=self._num_cols()
+        self.num_cols,self.str_cols,self.objects=self._num_cols()
         self._limpiar_datos()
+
 
     def _limpiar_datos(self):
         self.clean_data=self.data
         self.clean_data=self.clean_data.drop(self.str_cols,axis=1)
         self.clean_data=self.clean_data.dropna()
-        
-
 
     def _num_cols(self):
         #Columnas numericas
         str_cols=[]
         num_cols=[]
+        objects=[]
         for feature in self.data.columns:
             #SUPONDO QUE NO SE PUEDEN PROCESAR OBJETOS
             if self.data[feature].dtype!='object':
                 num_cols.append(feature)
             else:
                 str_cols.append(feature)
-        return num_cols,str_cols
+                if self.data[feature].nunique() <= 10:
+                    objects.append(feature)
+        return num_cols,str_cols,objects
 
     def numeric_columns(self):
         return self.num_cols

@@ -23,8 +23,9 @@ class ElbowController:
             km=KMeans(n_clusters=i,random_state=0)
             km.fit(self.model.clean_data)
             SSE.append(km.inertia_)
-
         knee_loc=KneeLocator(range(2,12),SSE,curve='convex',direction='decreasing')
+        self.ax.cla()
+        self.ax.clear()
         self.ax.plot(range(2, 12), SSE, marker='o')
         self.ax.set_xlabel('Cantidad de clusters *k*')
         self.ax.set_ylabel('SSE')
@@ -34,3 +35,8 @@ class ElbowController:
             linestyles="--", label="knee/elbow"
         )
         self.ax.legend(loc="best")
+        self.graph.figure.canvas.draw()
+        try:
+            self.ax.redraw_in_frame()
+        except AttributeError:
+            print("No tenía caché")

@@ -7,6 +7,7 @@ class MenuController:
         self.view=view
         self.bind_signals()
         self.model=model
+        self.carga=0
 
     def bind_signals(self):
         self.view.actionAbrir.triggered.connect(self.openFile)
@@ -18,12 +19,22 @@ class MenuController:
         self.view.actionSalir.triggered.connect(self.exit)
         self.view.actionSalir.setShortcut(QKeySequence("Ctrl+q"))
 
+    def aumentar_carga(self,valor):
+        self.carga=self.carga+valor
+        self.view.progress_bar.setProperty("value",self.carga)
+        if self.carga==100:
+            self.view.load_screen.hide()
+            self.view.tabWidget.show()
+
     def openFile(self):
         print("Abriendo archivo")
         file = QFileDialog.getOpenFileName(self.view,
             "Abrir archivo", ".","Archivo de datos (*.csv)"
         )[0]
         if len(file)>0:
+            self.carga=0
+            self.view.tabWidget.hide()
+            self.view.load_screen.show()
             # Cambiando el titulo de la ventana
             file_name=file.split('/')[-1]
 
@@ -45,6 +56,9 @@ class MenuController:
             except PermissionError:
                 self.show_error_popup("No se tienen permisos para abrir el archivo")
                 return
+        else:
+            pass
+        # PROVICIONAL EN LO QUE DECIDO POR OBSERVER O SEÑALES
 
             # self.view.progress_bar.setProperty("value", 20)
 
@@ -68,8 +82,9 @@ class MenuController:
 
     # ERRORS
     def show_error_popup(self,message):
-        self.view.progress_bar.hide()
-        self.view.scroll_analisis.hide()
+        self.model.file=None
+        # self.view.progress_bar.hide()
+        # self.view.scroll_analisis.hide()
         self.view.setWindowTitle("Minería de datos")
         error_message=QMessageBox()
         error_message.critical(self.view,"Error",message)

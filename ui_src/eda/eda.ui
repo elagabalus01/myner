@@ -63,50 +63,11 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>877</width>
+        <width>880</width>
         <height>490</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="5" column="0">
-        <widget class="QTableWidget" name="estruct_table">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="faltantes_label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Datos faltantes</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QTableWidget" name="missed_table">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="preview_label">
          <property name="sizePolicy">
@@ -176,6 +137,35 @@
          </property>
         </widget>
        </item>
+       <item row="5" column="0">
+        <widget class="QTableWidget" name="estruct_table">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="faltantes_label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Datos faltantes</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0" colspan="2">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <property name="leftMargin">
@@ -231,6 +221,47 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="5" column="1">
+        <widget class="QTableWidget" name="missed_table">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0" colspan="2">
+        <widget class="QWidget" name="object_plot" native="true">
+         <layout class="QGridLayout" name="object_plot_grid">
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="topMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Característica</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="object_feature_box"/>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>

@@ -19,3 +19,4 @@ class EDA_Controller(Observer):
         self.struct.set_struct_table()
         self.missing.set_missing_table()
         self.graph.set_model()
+        self.view.loaded.emit(30)
