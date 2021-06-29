@@ -32,5 +32,6 @@ class KmeansController(Observer):
 
     def notify(self,model,*args,**kwargs):
         self.ctl_elbow.calcular()
+        self.view.loaded.emit(10)
         self.ctl_clusters.load_model()
-        self.view.loaded.emit(40)
+        self.view.loaded.emit(30)

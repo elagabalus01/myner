@@ -27,22 +27,11 @@ class ClustersController():
         self.view.num_clusters_in.setValue(4)
         self.bind_signals()
 
-    def set_colors(self):
-        asignar_aux=[]
-        for grupo in self.km.labels_:
-            asignar_aux.append(self.colores[grupo])
-        self.asignar=asignar_aux
-
     def bind_signals(self):
         self.view.feature_x_box.activated.connect(self.plot)
         self.view.feature_y_box.activated.connect(self.plot)
         self.view.feature_z_box.activated.connect(self.plot)
         self.view.num_clusters_in.valueChanged.connect(self.set_num_clusters)
-
-    def calcular_clusters(self):
-        data=self.model.clean_data
-        self.km=KMeans(n_clusters=self.num_clusters,random_state=0).fit(data)
-        self.km.predict(data)
 
     def set_num_clusters(self,num):
         self.num_clusters=num
@@ -67,7 +56,21 @@ class ClustersController():
         self.view.feature_z_box.setCurrentIndex(0)
         self.make_clusters()
 
+    def calcular_clusters(self):
+        #Se tiene que paralelizar
+        data=self.model.clean_data
+        self.km=KMeans(n_clusters=self.num_clusters,random_state=0).fit(data)
+        self.km.predict(data)
+
+    def set_colors(self):
+        #Se tiene que paralelizar
+        asignar_aux=[]
+        for grupo in self.km.labels_:
+            asignar_aux.append(self.colores[grupo])
+        self.asignar=asignar_aux
+
     def calcular_centroides(self):
+        #Se tiene que paralelizar
         data=self.model.clean_data
         self.centroides=self.km.cluster_centers_
         self.centroides=pd.DataFrame(self.centroides.round(4),

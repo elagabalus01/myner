@@ -19,6 +19,7 @@ class ElbowController:
     def calcular(self):
         SSE=[]
         #Se comprueba de 2 a 12 grupos
+        #SE TIENE QUE PARALELIZAR
         for i in range(2,12):
             km=KMeans(n_clusters=i,random_state=0)
             km.fit(self.model.clean_data)

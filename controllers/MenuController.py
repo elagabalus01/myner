@@ -2,12 +2,16 @@ from PyQt5.QtWidgets import QFileDialog,QMessageBox
 from PyQt5.QtGui import QKeySequence
 from model import DataAdapter
 from pandas.errors import ParserError
+from .MyWorker import MyWorker
+from PyQt5.QtCore import QThread
 class MenuController:
     def __init__(self,view,model):
         self.view=view
-        self.bind_signals()
         self.model=model
         self.carga=0
+        self.read_thread=None
+        self.read_worker=None
+        self.bind_signals()
 
     def bind_signals(self):
         self.view.actionAbrir.triggered.connect(self.openFile)
@@ -25,14 +29,14 @@ class MenuController:
         if self.carga==100:
             self.view.load_screen.hide()
             self.view.tabWidget.show()
+            self.carga=0
+            self.view.progress_bar.setProperty("value",self.carga)
 
     def openFile(self):
-        print("Abriendo archivo")
         file = QFileDialog.getOpenFileName(self.view,
             "Abrir archivo", ".","Archivo de datos (*.csv)"
         )[0]
         if len(file)>0:
-            self.carga=0
             self.view.tabWidget.hide()
             self.view.load_screen.show()
             # Cambiando el titulo de la ventana
@@ -44,9 +48,21 @@ class MenuController:
             # self.view.progress_bar.show()
             # self.view.progress_bar.setProperty("value", 0)
             try:
-                # self.model=self.mo(file)
-                self.model.loadFile(file)
-                self.model.notify_observers()
+                print("Comenzando carga de archivo")
+                self.read_thread=QThread()
+                self.read_worker=MyWorker(self.model)
+                self.read_worker.moveToThread(self.read_thread)
+                self.read_worker.set_file(file)
+                self.read_worker.complete.connect(self.read_thread.quit)
+                self.read_worker.complete.connect(self.read_worker.deleteLater)
+                self.read_thread.finished.connect(self.read_thread.deleteLater)
+
+                self.read_thread.started.connect(self.read_worker.read_file)
+                self.read_worker.complete.connect(self.model.notify_observers)
+
+                self.read_thread.start()
+                # self.model.loadFile(file)
+                # self.model.notify_observers()
             except FileNotFoundError:
                 self.show_error_popup("No se ha encontrado el archivo")
                 return

@@ -25,7 +25,6 @@ class FS_Controller(Observer):
         self.view.method.addWidget(self.pca)
         #DATOS INCIALES
         self.bind_signals()
-        print(self.view.method.count())
         self.features_box=[]
 
     def bind_signals(self):
@@ -54,9 +53,10 @@ class FS_Controller(Observer):
                 j=j+1
 
     def notify(self,model,*args,**kwargs):
-        print(f"Abriendo el modelo desde FS controller: {model}")
         self.set_features()
         self.ctl_visual.set_model()
+        self.view.loaded.emit(10)
         self.ctl_corr.show_heatmap()
+        self.view.loaded.emit(10)
         self.ctl_pca.set_model()
-        self.view.loaded.emit(30)
+        self.view.loaded.emit(10)

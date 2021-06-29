@@ -9,7 +9,6 @@ class PreviewController:
     def set_preview_table(self):
         n_rows=10
         if self.model.file:
-            print("Corrient")
             # Inhabilita la modificación de las celdas
             self.view.preview_table.setEditTriggers(
                 QAbstractItemView.NoEditTriggers

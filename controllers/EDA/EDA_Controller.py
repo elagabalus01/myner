@@ -16,7 +16,9 @@ class EDA_Controller(Observer):
     def notify(self,model,*args,**kwargs):
         print(f"Abriendo el modelo: {model.file}")
         self.preview.set_preview_table()
+        self.view.loaded.emit(10)
         self.struct.set_struct_table()
         self.missing.set_missing_table()
+        self.view.loaded.emit(10)
         self.graph.set_model()
-        self.view.loaded.emit(30)
+        self.view.loaded.emit(10)
