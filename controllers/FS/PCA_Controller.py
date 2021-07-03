@@ -8,7 +8,7 @@ class PCA_Controller:
         self.model=model
         self.view=view
         self.bind_signals()
-    
+
     def set_model(self):
         self.view.features_box.clear()
         for feature in self.model.numeric_columns():
@@ -24,14 +24,14 @@ class PCA_Controller:
         # Se quita la variable dependiente "Y"
         y=self.view.features_box.currentText()
         if y=='Ninguna':
-            matriz = self.model.clean_data
+            matriz = self.model.numeric_data()
         else:
-            matriz = self.model.clean_data.drop([y], axis=1)
+            matriz = self.model.numeric_data().drop([y], axis=1)
         # Filtrando propiedades nos numericas
-        
+
         # Se calcula la media y desviación para cada dimensión
         normalizador.fit(matriz)
-        # Se normalizan los datos 
+        # Se normalizan los datos
         matriz_normalizada = normalizador.transform(matriz)
         #Calcula la matriz de covarianza y obtiene las distancias respecto a los eigenvectores
         num_componentes=len(matriz.columns)

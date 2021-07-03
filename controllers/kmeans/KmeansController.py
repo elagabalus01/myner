@@ -23,17 +23,19 @@ class KmeansController(Observer):
     def bind_signals(self):
         self.elbow.btn_calcular.pressed.connect(self.show_kmeans)
         self.clusters.btn_elbow.pressed.connect(self.show_elbow)
+        self.elbow.loaded.connect(self.end_loading)
 
     def show_kmeans(self):
         self.view.widget_list.setCurrentIndex(1)
+        self.clusters.scroll_clusters.verticalScrollBar().setValue(0)
 
     def show_elbow(self):
         self.view.widget_list.setCurrentIndex(0)
 
+    def end_loading(self,int):
+        self.view.loaded.emit(40)
+
     def notify(self,model,*args,**kwargs):
         self.cluster_model.data=self.model.clean_data
         self.ctl_elbow.calcular_elbow()
-        self.view.loaded.emit(10)
         self.ctl_clusters.load_model()
-        self.view.loaded.emit(30)
-        

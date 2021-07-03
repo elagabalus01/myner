@@ -4,6 +4,7 @@ from model import DataAdapter
 from pandas.errors import ParserError
 from .MyWorker import MyWorker
 from PyQt5.QtCore import QThread
+from views import LoadingScreen
 class MenuController:
     def __init__(self,view,model):
         self.view=view
@@ -11,6 +12,7 @@ class MenuController:
         self.carga=0
         self.read_thread=None
         self.read_worker=None
+        self.loading_screen=LoadingScreen(self.view)
         self.bind_signals()
 
     def bind_signals(self):
@@ -26,11 +28,15 @@ class MenuController:
     def aumentar_carga(self,valor):
         self.carga=self.carga+valor
         self.view.progress_bar.setProperty("value",self.carga)
+        self.loading_screen.loading_bar.setProperty("value",self.carga)
         if self.carga==100:
             self.view.load_screen.hide()
             self.view.tabWidget.show()
+            self.loading_screen.close()
             self.carga=0
             self.view.progress_bar.setProperty("value",self.carga)
+            self.loading_screen.loading_bar.setProperty("value",self.carga)
+
 
     def openFile(self):
         file = QFileDialog.getOpenFileName(self.view,
@@ -39,6 +45,7 @@ class MenuController:
         if len(file)>0:
             self.view.tabWidget.hide()
             self.view.load_screen.show()
+            self.loading_screen.open()
             # Cambiando el titulo de la ventana
             file_name=file.split('/')[-1]
 

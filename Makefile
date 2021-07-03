@@ -7,6 +7,9 @@ eda_src=$(src)/EDA
 km_view=$(views)/Kmeans
 km_src=$(src)/kmeans
 
+app_views=$(views)/Ui_LoadingScreen.py\
+		$(views)/Ui_MainWindow.py
+
 fs_views=$(fs_view)/Ui_FeatureSelectionWidget.py\
 		$(fs_view)/Ui_VisualEvaluation.py\
 		$(fs_view)/Ui_Correlation.py\
@@ -28,7 +31,7 @@ test: build
 	echo "Realizando las pruebas"
 	python -B test.py
 
-build: $(views)/Ui_MainWindow.py $(fs_views) ${eda_views} ${km_views}
+build:$(app_views)  $(fs_views) ${eda_views} ${km_views}
 	echo "Actualizando la interfaz"
 
 build_res: ./res_rc.py
@@ -38,6 +41,9 @@ build_res: ./res_rc.py
 	pyrcc5 -o ./res_rc.py ./res/res.qrc
 
 $(views)/Ui_MainWindow.py: $(src)/MainWindow.ui
+	pyuic5 $< -o $@
+
+$(views)/Ui_LoadingScreen.py: $(src)/loading_screen.ui
 	pyuic5 $< -o $@
 
 $(fs_view)/Ui_FeatureSelectionWidget.py: $(fs_src)/FeatureSelectionWidget.ui
@@ -57,11 +63,12 @@ $(eda_view)/Ui_EDA_Widget.py: $(eda_src)/eda.ui
 
 $(km_view)/Ui_ElbowWidget.py: $(km_src)/Elbow.ui
 	pyuic5 $< -o $@
-	
+
 $(km_view)/Ui_KmeansWidget.py:$(km_src)/kmeans.ui
 	pyuic5 $< -o $@
 
 $(km_view)/Ui_ClustersWidget.py:$(km_src)/clusters.ui
 	pyuic5 $< -o $@
+
 
 .SILENT: run test build

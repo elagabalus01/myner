@@ -175,6 +175,13 @@
              </layout>
             </widget>
            </item>
+           <item row="1" column="0" alignment="Qt::AlignRight">
+            <widget class="QPushButton" name="btn_update_features">
+             <property name="text">
+              <string>Actualizar</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </widget>

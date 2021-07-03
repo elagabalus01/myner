@@ -29,25 +29,32 @@ class ClustersController():
     def set_num_clusters(self,num):
         self.model.num_clusters=num
         self.view.num_clusters_in.setDisabled(True)
+        self.view.feature_x_box.setDisabled(True)
+        self.view.feature_y_box.setDisabled(True)
+        self.view.feature_z_box.setDisabled(True)
+        self.view.scroll_clusters.verticalScrollBar().setValue(0)
         self.make_clusters()
-    
+
     def enable_user_input(self):
         self.view.num_clusters_in.setDisabled(False)
+        self.view.feature_x_box.setDisabled(False)
+        self.view.feature_y_box.setDisabled(False)
+        self.view.feature_z_box.setDisabled(False)
 
     def make_clusters(self):
         self.cluster_thread=QThread()
         self.cluster_worker=ClusterWorker(self.model)
         self.cluster_worker.moveToThread(self.cluster_thread)
-        
+
         self.cluster_thread.started.connect(self.cluster_worker.calcular_clusters)
         self.cluster_worker.complete.connect(self.plot)
         self.cluster_worker.complete.connect(self.set_centroides_table)
         self.cluster_worker.complete.connect(self.enable_user_input)
-        
+
         self.cluster_worker.complete.connect(self.cluster_thread.quit)
         self.cluster_worker.complete.connect(self.cluster_worker.deleteLater)
         self.cluster_thread.finished.connect(self.cluster_thread.deleteLater)
-        
+
         self.cluster_thread.start()
 
     def load_model(self):

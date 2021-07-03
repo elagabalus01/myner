@@ -9,11 +9,11 @@ class DataAdapter(Observable):
         self.num_cols=None
         self.str_cols=None
         self.objects=None
+        self.filtered=None
         self.file=filepath
         if filepath:
             # self.data=pd.read_csv(filepath)
             self.loadFile(filepath)
-
 
     def loadFile(self,filepath):
         self.file=filepath
@@ -21,11 +21,17 @@ class DataAdapter(Observable):
         self.num_cols,self.str_cols,self.objects=self._num_cols()
         self._limpiar_datos()
 
-
     def _limpiar_datos(self):
         self.clean_data=self.data
+        if self.filtered and len(self.filtered)>0:
+            self.clean_data=self.clean_data.drop(self.filtered,axis=1)
         self.clean_data=self.clean_data.drop(self.str_cols,axis=1)
         self.clean_data=self.clean_data.dropna()
+
+    def filter_columns(self,filtered:list):
+        self.filtered=filtered
+        self._limpiar_datos()
+        self.notify_observers(msg="UPDATE")
 
     def _num_cols(self):
         #Columnas numericas
@@ -45,22 +51,11 @@ class DataAdapter(Observable):
     def numeric_columns(self):
         return self.num_cols
 
+    def numeric_data(self):
+        numeric_data=self.data
+        numeric_data=numeric_data.drop(self.str_cols,axis=1)
+        numeric_data=numeric_data.dropna()
+        return numeric_data
+
     def string_columns(self):
         return self.str_cols
-
-
-# def getDataFrame(filepath):
-#     return pd.read_csv(filepath)
-
-# datos=pd.read_csv('data.csv')
-# renglones=datos.axes[0]
-# header=datos.axes[1]
-# # for i in range(0,len(header)):
-# #     print(header[i],type(header[i]),sep='')
-# # for column in header:
-# #     print(column,type(column),sep=',')
-# def get_head_dtype(data):
-#     cols=datos.axes[1]
-#     n_col=len(cols)
-#     for i in range(0,n_col):
-#         print(cols[i],data[cols[i]].dtype)

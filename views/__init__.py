@@ -1,4 +1,5 @@
 from .MainWindow import MainWindow
+from .LoadingScreen import LoadingScreen
 from .FS.FeatureSelectionWidget import FeatureSelectionWidget
 from .FS.VisualEvaluationWidget import VisualEvaluationWidget
 from .FS.CorrelationWidget import CorrelationWidget

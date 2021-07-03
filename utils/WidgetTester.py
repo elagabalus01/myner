@@ -1,19 +1,25 @@
 import sys
 from controllers.kmeans import KmeansController
 from controllers.EDA import EDA_Controller
+from controllers.FS import FS_Controller
 from views import KmeansWidget
 from views import EDA_Widget
+from views import FeatureSelectionWidget
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget
 from model import DataAdapter
 class RunWidget:
-    def __init__(self,widget:str):
+    def __init__(self,widget:str,controller:str=None):
         self.widget=widget
+        self.controller=controller
     def run(self):
         app = QApplication(sys.argv)
         # win=Window()
         # win.show()
-        win=WidgetTester(f"{self.widget}Widget",f"{self.widget}Controller")
+        if self.controller:
+            win=WidgetTester(f"{self.widget}Widget",f"{self.controller}Controller")
+        else:
+            win=WidgetTester(f"{self.widget}Widget",f"{self.widget}Controller")
         win.show()
         sys.exit(app.exec())
 
@@ -35,5 +41,3 @@ class WidgetTester(QMainWindow):
         self.central_widget=QWidget()
         self.central_widget.setLayout(self.gridLayout)
         self.setCentralWidget(self.central_widget)
-        
-

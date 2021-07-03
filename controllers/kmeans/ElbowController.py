@@ -22,6 +22,7 @@ class ElbowController:
         self.elbow_worker=ClusterWorker(self.model)
         self.elbow_worker.moveToThread(self.elbow_thread)
 
+
         self.elbow_worker.complete.connect(self.elbow_thread.quit)
         self.elbow_worker.complete.connect(self.elbow_worker.deleteLater)
         self.elbow_thread.finished.connect(self.elbow_thread.deleteLater)
@@ -50,3 +51,4 @@ class ElbowController:
             self.ax.redraw_in_frame()
         except AttributeError:
             print("No tenía caché")
+        self.view.loaded.emit(100)

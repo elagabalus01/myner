@@ -1,6 +1,7 @@
 from .Ui_ClustersWidget import Ui_ClustersWidget
 from PyQt5.QtWidgets import QWidget
-class ClustersWidget(QWidget,Ui_ClustersWidget):
+from views.infrastructure.Loadable import Loadable
+class ClustersWidget(QWidget,Ui_ClustersWidget,Loadable):
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setupUi(self)

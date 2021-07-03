@@ -37,7 +37,5 @@ class MainController:
         self.km_ctl=KmeansController(self.model,km_view)
         km_view.loaded.connect(self.menu_controller.aumentar_carga)
 
-
-
     def run(self):
         self.view.show()
