@@ -27,8 +27,7 @@ class ElbowController:
         SSE=self.model.SSE
         knee=self.model.knee_loc
         view=self.view
-        view.ax.cla()
-        view.ax.clear()
+        view.graph.clear_axis(view.ax)
         view.ax.plot(range(2, 12),SSE, marker='o')
         view.ax.set_xlabel('Cantidad de clusters *k*')
         view.ax.set_ylabel('SSE')
@@ -38,9 +37,5 @@ class ElbowController:
             linestyles="--", label="knee/elbow"
         )
         view.ax.legend(loc="best")
-        view.graph.figure.canvas.draw()
-        try:
-            view.ax.redraw_in_frame()
-        except AttributeError:
-            print("No tenía caché")
+        view.graph.update_axis(view.ax)
         view.loaded.emit(100)

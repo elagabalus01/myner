@@ -20,19 +20,13 @@ class VisualEvaluationController:
         x_label=view.eje_x_box.currentText()
         y_label=view.eje_y_box.currentText()
         var_dep=view.dependiente_box.currentText()
-        view.axe.clear()
-        # self.axe=self.graph.figure.add_subplot(1, 1, 1)
+        view.graph.clear_axis(view.axe)
         view.axe.set_title('Gráfico de dispersión')
-        # self.axe.scatter(self.model.data[x_label],self.model.data[y_label])
-        sns.scatterplot(ax=view.axe,x=x_label,y=y_label,
-            data=self.model.data, hue=var_dep)
         view.axe.set_xlabel(x_label)
         view.axe.set_ylabel(y_label)
-        view.graph.figure.canvas.draw()
-        try:
-            view.axe.redraw_in_frame()
-        except AttributeError:
-            print("No tenía caché")
+        sns.scatterplot(ax=view.axe,x=x_label,y=y_label,
+            data=self.model.data, hue=var_dep)
+        view.graph.update_axis(view.axe)
 
     def set_model(self):
         self.view.eje_x_box.clear()

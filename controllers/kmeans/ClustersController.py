@@ -71,23 +71,15 @@ class ClustersController():
         x=view.feature_x_box.currentText()
         y=view.feature_y_box.currentText()
         z=view.feature_z_box.currentText()
-        view.ax.cla()
-        view.ax.clear()
+        view.graph.clear_axis(view.ax)
         view.ax.scatter(data[x],
             data[y],c=asignar)
         view.ax.set_title('Clusters')
         view.ax.set_xlabel(x)
         view.ax.set_ylabel(y)
-        view.ax.figure.canvas.draw()
-        view.ax.figure.canvas.flush_events()
+        view.graph.update_axis(view.ax)
 
-        try:
-            view.ax.redraw_in_frame()
-        except AttributeError:
-            print("No tenía caché")
-
-        view.ax_3d.cla()
-        view.ax_3d.clear()
+        view.graph.clear_axis(view.ax_3d)
         view.ax_3d.scatter(data[x],
             data[y],
             data[z],
@@ -100,15 +92,7 @@ class ClustersController():
         view.ax_3d.set_xlabel(x)
         view.ax_3d.set_ylabel(y)
         view.ax_3d.set_zlabel(z)
-        try:
-            view.ax_3d.figure.canvas.draw()
-            view.ax_3d.figure.canvas.flush_events()
-        except AttributeError:
-            print(f"{type(view.ax_3d)} no tiene figure canvas")
-        try:
-            view.ax_3d.redraw_in_frame()
-        except AttributeError:
-            print("No tenía caché")
+        view.graph.update_axis(view.ax_3d)
 
 
     def set_centroides_table(self):

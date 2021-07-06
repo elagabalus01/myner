@@ -17,6 +17,7 @@ class DataAdapter(Observable):
 
     def loadFile(self,filepath):
         self.file=filepath
+        self.filtered=[]
         self.data=pd.read_csv(filepath)
         self.num_cols,self.str_cols,self.objects=self._num_cols()
         self._limpiar_datos()

@@ -35,6 +35,7 @@ class FS_Controller(Observer):
         self.view.method.setCurrentIndex(index)
 
     def set_features(self):
+        self.features_box=[]
         cols=len(self.model.numeric_columns())
         root=sqrt(cols)
         cols=floor(root)
