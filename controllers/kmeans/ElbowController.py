@@ -1,7 +1,3 @@
-from controllers.infrastructure.Canvas import Canvas
-from matplotlib.figure import Figure
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtCore import QThread
 from .ClusterWorker import ClusterWorker
 
@@ -9,11 +5,6 @@ class ElbowController:
     def __init__(self,model,view):
         self.model=model
         self.view=view
-        self.graph=Canvas(Figure())
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
-        self.graph.setSizePolicy(sizePolicy)
-        self.ax=self.graph.figure.add_subplot(1, 1, 1)
-        self.view.graph_grid.addWidget(self.graph,0,0,Qt.AlignHCenter)
         self.elbow_thread=None
         self.elbow_worker=None
 
@@ -35,20 +26,21 @@ class ElbowController:
     def plot(self):
         SSE=self.model.SSE
         knee=self.model.knee_loc
-        self.ax.cla()
-        self.ax.clear()
-        self.ax.plot(range(2, 12),SSE, marker='o')
-        self.ax.set_xlabel('Cantidad de clusters *k*')
-        self.ax.set_ylabel('SSE')
-        self.ax.set_title('Elbow Method')
-        self.ax.vlines(
+        view=self.view
+        view.ax.cla()
+        view.ax.clear()
+        view.ax.plot(range(2, 12),SSE, marker='o')
+        view.ax.set_xlabel('Cantidad de clusters *k*')
+        view.ax.set_ylabel('SSE')
+        view.ax.set_title('Elbow Method')
+        view.ax.vlines(
             knee,SSE[0],SSE[9],
             linestyles="--", label="knee/elbow"
         )
-        self.ax.legend(loc="best")
-        self.graph.figure.canvas.draw()
+        view.ax.legend(loc="best")
+        view.graph.figure.canvas.draw()
         try:
-            self.ax.redraw_in_frame()
+            view.ax.redraw_in_frame()
         except AttributeError:
             print("No tenía caché")
-        self.view.loaded.emit(100)
+        view.loaded.emit(100)

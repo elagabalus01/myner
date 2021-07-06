@@ -1,7 +1,4 @@
-from controllers.infrastructure.Canvas import Canvas
-from matplotlib.figure import Figure
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QSizePolicy,QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidgetItem
 from PyQt5.QtCore import QThread
 from .ClusterWorker import ClusterWorker
 
@@ -9,12 +6,6 @@ class ClustersController():
     def __init__(self,model,view):
         self.model=model
         self.view=view
-        self.graph=Canvas(Figure(figsize=(10,5)))
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
-        self.graph.setSizePolicy(sizePolicy)
-        self.ax=self.graph.figure.add_subplot(1, 2, 1)
-        self.view.graph_grid.addWidget(self.graph,0,0,Qt.AlignHCenter)
-        self.ax_3d=self.graph.figure.add_subplot(1, 2, 2, projection='3d')
         self.view.num_clusters_in.setValue(4)
         self.cluster_thread=None
         self.cluster_worker=None
@@ -75,46 +66,47 @@ class ClustersController():
         centroides=self.model.centroides
         num_clusters=self.model.num_clusters
         colores=self.model.colores
+        view=self.view
 
-        x=self.view.feature_x_box.currentText()
-        y=self.view.feature_y_box.currentText()
-        z=self.view.feature_z_box.currentText()
-        self.ax.cla()
-        self.ax.clear()
-        self.ax.scatter(data[x],
+        x=view.feature_x_box.currentText()
+        y=view.feature_y_box.currentText()
+        z=view.feature_z_box.currentText()
+        view.ax.cla()
+        view.ax.clear()
+        view.ax.scatter(data[x],
             data[y],c=asignar)
-        self.ax.set_title('Clusters')
-        self.ax.set_xlabel(x)
-        self.ax.set_ylabel(y)
-        self.ax.figure.canvas.draw()
-        self.ax.figure.canvas.flush_events()
+        view.ax.set_title('Clusters')
+        view.ax.set_xlabel(x)
+        view.ax.set_ylabel(y)
+        view.ax.figure.canvas.draw()
+        view.ax.figure.canvas.flush_events()
 
         try:
-            self.ax.redraw_in_frame()
+            view.ax.redraw_in_frame()
         except AttributeError:
             print("No tenía caché")
 
-        self.ax_3d.cla()
-        self.ax_3d.clear()
-        self.ax_3d.scatter(data[x],
+        view.ax_3d.cla()
+        view.ax_3d.clear()
+        view.ax_3d.scatter(data[x],
             data[y],
             data[z],
             c=asignar)
-        self.ax_3d.scatter(centroides[x],
+        view.ax_3d.scatter(centroides[x],
             centroides[y],
             centroides[z],
            c=colores[0:num_clusters],s=100)
-        self.ax_3d.set_title('Clusters')
-        self.ax_3d.set_xlabel(x)
-        self.ax_3d.set_ylabel(y)
-        self.ax_3d.set_zlabel(z)
+        view.ax_3d.set_title('Clusters')
+        view.ax_3d.set_xlabel(x)
+        view.ax_3d.set_ylabel(y)
+        view.ax_3d.set_zlabel(z)
         try:
-            self.ax_3d.figure.canvas.draw()
-            self.ax_3d.figure.canvas.flush_events()
+            view.ax_3d.figure.canvas.draw()
+            view.ax_3d.figure.canvas.flush_events()
         except AttributeError:
-            print(f"{type(self.ax_3d)} no tiene figure canvas")
+            print(f"{type(view.ax_3d)} no tiene figure canvas")
         try:
-            self.ax_3d.redraw_in_frame()
+            view.ax_3d.redraw_in_frame()
         except AttributeError:
             print("No tenía caché")
 
