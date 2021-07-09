@@ -28,7 +28,8 @@ class MissingController():
             for i in range(n_col):
                 item=QTableWidgetItem(cols[i])
                 self.view.setItem(i,0,item)
-                item=QTableWidgetItem(str(missed[i]))
+                item=QTableWidgetItem()
+                item.setData(Qt.DisplayRole,int(missed[i]))
                 self.view.setItem(i,1,item)
 
             header = self.view.horizontalHeader()

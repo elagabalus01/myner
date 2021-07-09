@@ -6,7 +6,11 @@ fs_src=$(src)/FS
 eda_src=$(src)/EDA
 km_view=$(views)/Kmeans
 km_src=$(src)/kmeans
-
+res=./res
+my_res_src=$(src)/res/res.qrc
+breeze_res_src=$(src)/QBreeze/qbreeze.qrc
+resources=$(res)/res_rc.py\
+			$(res)/breeze_rc.py
 app_views=$(views)/Ui_LoadingScreen.py\
 		$(views)/Ui_MainWindow.py
 
@@ -31,17 +35,19 @@ test: build
 	echo "Realizando las pruebas"
 	python -B test.py
 
-build:$(app_views)  $(fs_views) ${eda_views} ${km_views}
+build:$(app_views)  $(fs_views) ${eda_views} ${km_views} ${resources}
 	echo "Actualizando la interfaz"
 
-build_res: ./res_rc.py
+build_res: $(resources)
 	echo "Actualizando paquete de recursos"
 
-./res_rc.py: ./res/res.qrc
-	pyrcc5 -o ./res_rc.py ./res/res.qrc
+$(res)/res_rc.py: $(my_res_src)
+	pyrcc5 $< -o $@
+$(res)/breeze_rc.py: $(breeze_res_src)
+	pyrcc5 $< -o $@
 
 $(views)/Ui_MainWindow.py: $(src)/MainWindow.ui
-	pyuic5 $< -o $@
+	pyuic5 $< -o $@ --import-from=res
 
 $(views)/Ui_LoadingScreen.py: $(src)/loading_screen.ui
 	pyuic5 $< -o $@
@@ -62,13 +68,12 @@ $(eda_view)/Ui_EDA_Widget.py: $(eda_src)/eda.ui
 	pyuic5 $< -o $@
 
 $(km_view)/Ui_ElbowWidget.py: $(km_src)/Elbow.ui
-	pyuic5 $< -o $@
+	pyuic5 $< -o $@ --import-from=res
 
 $(km_view)/Ui_KmeansWidget.py:$(km_src)/kmeans.ui
 	pyuic5 $< -o $@
 
 $(km_view)/Ui_ClustersWidget.py:$(km_src)/clusters.ui
-	pyuic5 $< -o $@
-
+	pyuic5 $< -o $@ --import-from=res
 
 .SILENT: run test build

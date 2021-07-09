@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QTableWidgetItem
 from PyQt5.QtCore import QThread
 from .ClusterWorker import ClusterWorker
-
+from PyQt5.QtCore import Qt
 class ClustersController():
     def __init__(self,model,view):
         self.model=model
@@ -112,7 +112,12 @@ class ClustersController():
                 for j in range(n_rows):
                     value=data[column_name][j]
                     # print(value)
-                    item=QTableWidgetItem(str(value))
+                    # print(type(value))
+                    if type(value)==str:
+                        item=QTableWidgetItem(str(value))
+                    else:
+                        item=QTableWidgetItem()
+                        item.setData(Qt.DisplayRole,float(value))
                     table.setItem(j,i,item)
 
         header = table.horizontalHeader()

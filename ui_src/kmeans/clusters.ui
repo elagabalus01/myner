@@ -14,6 +14,18 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item row="0" column="1">
     <widget class="QSplitter" name="splitter">
      <property name="frameShape">
@@ -49,8 +61,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>618</width>
-            <height>282</height>
+            <width>636</width>
+            <height>281</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
@@ -164,7 +176,11 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>regresar a elbow method</string>
+              <string>Regresar a elbow method</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../res/res.qrc">
+               <normaloff>:/img/img/arrow_back.png</normaloff>:/img/img/arrow_back.png</iconset>
              </property>
             </widget>
            </item>
@@ -258,6 +274,9 @@
          <property name="horizontalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -266,6 +285,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../res/res.qrc"/>
+ </resources>
  <connections/>
 </ui>

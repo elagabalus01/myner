@@ -2,17 +2,16 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from controllers import MainController
 # import qdarkstyle
-import QBreeze.qbreeze_resources
+# import QBreeze.qbreeze_resources
+import res.breeze_rc
+
+from PyQt5 import QtCore
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-    app.setStyleSheet(open('./QBreeze/dark.qss').read())
-    # app.setStyleSheet(open('./themes/dark.css').read())
-
-    # app.setStyleSheet(open('./StyleSheets-for-PyQt5/Ubuntu.qss').read())
-    # win=Window()
-    # win.show()
+    stream = QtCore.QFile(':/qbreeze/dark.qss')
+    stream.open(QtCore.QIODevice.ReadOnly)
+    app.setStyleSheet(QtCore.QTextStream(stream).readAll())
     win=MainController()
     win.run()
     sys.exit(app.exec())

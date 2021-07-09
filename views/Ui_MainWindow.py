@@ -84,4 +84,4 @@ class Ui_MainWindow(object):
         self.actionAbrir.setText(_translate("MainWindow", "Abrir"))
         self.actionCerrar.setText(_translate("MainWindow", "Cerrar"))
         self.actionSalir.setText(_translate("MainWindow", "Salir"))
-import res_rc
+from res import res_rc

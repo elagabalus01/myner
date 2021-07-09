@@ -14,6 +14,18 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item row="0" column="1">
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
@@ -24,11 +36,23 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>620</width>
-        <height>460</height>
+        <width>638</width>
+        <height>478</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
        <item row="2" column="0">
         <spacer name="btn_spacer">
          <property name="orientation">
@@ -56,6 +80,10 @@
          <property name="text">
           <string>Calcular k-means</string>
          </property>
+         <property name="icon">
+          <iconset resource="../../res/res.qrc">
+           <normaloff>:/img/img/arrow_ford.png</normaloff>:/img/img/arrow_ford.png</iconset>
+         </property>
         </widget>
        </item>
        <item row="0" column="0">
@@ -72,7 +100,20 @@
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <layout class="QGridLayout" name="graph_grid"/>
+        <layout class="QGridLayout" name="graph_grid">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -80,6 +121,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../res/res.qrc"/>
+ </resources>
  <connections/>
 </ui>
