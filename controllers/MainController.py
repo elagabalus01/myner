@@ -8,7 +8,8 @@ from .FS import FS_Controller
 from views import FeatureSelectionWidget
 from .kmeans import KmeansController
 from views import KmeansWidget
-
+from .Asociacion import AsociacionController
+from views import AprioriWidget
 class MainController:
     def __init__(self):
         # self.model=model
@@ -37,5 +38,13 @@ class MainController:
         self.km_ctl=KmeansController(self.model,km_view)
         km_view.loaded.connect(self.menu_controller.aumentar_carga)
 
+        # AGREGANDO MODULO DE REGLAS DE ASOCIaCION
+        ar_view=AprioriWidget()
+        self.view.tabWidget.insertTab(4,ar_view,"Reglas de asocicion")
+        self.ar_ctl=AsociacionController(self.model,ar_view)
+        ar_view.loaded.connect(self.menu_controller.aumentar_carga)
+
+
     def run(self):
-        self.view.show()
+        self.view.showMaximized()
+        # self.view.show()

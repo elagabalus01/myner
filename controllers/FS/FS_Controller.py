@@ -39,7 +39,6 @@ class FS_Controller(Observer):
         cols=len(self.model.numeric_columns())
         root=sqrt(cols)
         cols=floor(root)
-        print(f"Número de features {cols}")
         i=0
         j=0
         for feature in self.model.numeric_columns():
@@ -47,7 +46,6 @@ class FS_Controller(Observer):
             feature.setTristate(0)
             feature.setCheckState(2)
             self.features_box.append(feature)
-            print(f"Agregando en {feature.text()} {j,i}")
             self.view.feature_grid.addWidget(feature,j,i)
             i=i+1
             if i==cols+1:

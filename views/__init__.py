@@ -8,3 +8,5 @@ from .EDA.EDA_Widget import EDA_Widget
 from .Kmeans.ElbowWidget import ElbowWidget
 from .Kmeans.KmeansWidget import KmeansWidget
 from .Kmeans.ClustersWidget import ClustersWidget
+from .Asociacion.AprioriWidget import AprioriWidget
+from .Asociacion.AprioriCadenasWidget import AprioriCadenasWidget

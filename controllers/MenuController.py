@@ -40,7 +40,7 @@ class MenuController:
 
     def openFile(self):
         file = QFileDialog.getOpenFileName(self.view,
-            "Abrir archivo", ".","Archivo de datos (*.csv)"
+            "Abrir archivo", "../datasets","Archivo de datos (*.csv)"
         )[0]
         if len(file)>0:
             self.view.tabWidget.hide()

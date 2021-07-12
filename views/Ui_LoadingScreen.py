@@ -13,7 +13,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_LoadingScreen(object):
     def setupUi(self, LoadingScreen):
         LoadingScreen.setObjectName("LoadingScreen")
+        LoadingScreen.setWindowModality(QtCore.Qt.WindowModal)
         LoadingScreen.resize(600, 300)
+        LoadingScreen.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        LoadingScreen.setModal(False)
         self.gridLayout = QtWidgets.QGridLayout(LoadingScreen)
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(187, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -30,4 +33,4 @@ class Ui_LoadingScreen(object):
 
     def retranslateUi(self, LoadingScreen):
         _translate = QtCore.QCoreApplication.translate
-        LoadingScreen.setWindowTitle(_translate("LoadingScreen", "Dialog"))
+        LoadingScreen.setWindowTitle(_translate("LoadingScreen", "Cargando"))

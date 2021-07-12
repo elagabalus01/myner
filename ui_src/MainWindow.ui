@@ -14,7 +14,7 @@
    <string>Minería de datos</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/res.qrc">
+   <iconset resource="res/res.qrc">
     <normaloff>:/img/img/icon.png</normaloff>:/img/img/icon.png</iconset>
   </property>
   <property name="styleSheet">
@@ -124,7 +124,7 @@
      <x>0</x>
      <y>0</y>
      <width>716</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">
@@ -155,7 +155,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../res/res.qrc"/>
+  <include location="res/res.qrc"/>
  </resources>
  <connections/>
 </ui>

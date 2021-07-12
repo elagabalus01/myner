@@ -3,5 +3,5 @@ from utils import CanvasWidgetTester
 if __name__=="__main__":
     # RunWidget('Kmeans').run()
     # RunWidget('FeatureSelection','FS_').run()
-    CanvasWidgetTester().run()
-
+    RunWidget('Apriori','Asociacion').run()
+    # CanvasWidgetTester().run()

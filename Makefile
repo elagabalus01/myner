@@ -6,24 +6,32 @@ fs_src=$(src)/FS
 eda_src=$(src)/EDA
 km_view=$(views)/Kmeans
 km_src=$(src)/kmeans
+ar_src=$(src)/Asociacion
+ar_view=$(views)/Asociacion
 res=./res
 my_res_src=$(src)/res/res.qrc
 breeze_res_src=$(src)/QBreeze/qbreeze.qrc
+
 resources=$(res)/res_rc.py\
 			$(res)/breeze_rc.py
+
 app_views=$(views)/Ui_LoadingScreen.py\
 		$(views)/Ui_MainWindow.py
+
+eda_views=$(eda_view)/Ui_EDA_Widget.py
 
 fs_views=$(fs_view)/Ui_FeatureSelectionWidget.py\
 		$(fs_view)/Ui_VisualEvaluation.py\
 		$(fs_view)/Ui_Correlation.py\
 		$(fs_view)/Ui_PCA.py
 
-eda_views=$(eda_view)/Ui_EDA_Widget.py
-
 km_views=$(km_view)/Ui_ElbowWidget.py\
 		$(km_view)/Ui_KmeansWidget.py\
 		$(km_view)/Ui_ClustersWidget.py
+
+ar_views=$(ar_view)/Ui_AprioriWidget.py\
+		$(ar_view)/Ui_AprioriCadenasWidget.py
+
 
 rebuild:build build_res run
 
@@ -35,7 +43,7 @@ test: build
 	echo "Realizando las pruebas"
 	python -B test.py
 
-build:$(app_views)  $(fs_views) ${eda_views} ${km_views} ${resources}
+build:$(app_views)  $(fs_views) ${eda_views} ${km_views} $(ar_views) ${resources}
 	echo "Actualizando la interfaz"
 
 build_res: $(resources)
@@ -76,4 +84,9 @@ $(km_view)/Ui_KmeansWidget.py:$(km_src)/kmeans.ui
 $(km_view)/Ui_ClustersWidget.py:$(km_src)/clusters.ui
 	pyuic5 $< -o $@ --import-from=res
 
+$(ar_view)/Ui_AprioriWidget.py:$(ar_src)/apriori.ui
+	pyuic5 $< -o $@
+
+$(ar_view)/Ui_AprioriCadenasWidget.py:$(ar_src)/apriori_cadenas.ui
+	pyuic5 $< -o $@
 .SILENT: run test build
