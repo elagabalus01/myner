@@ -29,8 +29,7 @@ km_views=$(km_view)/Ui_ElbowWidget.py\
 		$(km_view)/Ui_KmeansWidget.py\
 		$(km_view)/Ui_ClustersWidget.py
 
-ar_views=$(ar_view)/Ui_AprioriWidget.py\
-		$(ar_view)/Ui_AprioriCadenasWidget.py
+ar_views=$(ar_view)/Ui_AprioriWidget.py
 
 
 rebuild:build build_res run
@@ -87,6 +86,4 @@ $(km_view)/Ui_ClustersWidget.py:$(km_src)/clusters.ui
 $(ar_view)/Ui_AprioriWidget.py:$(ar_src)/apriori.ui
 	pyuic5 $< -o $@
 
-$(ar_view)/Ui_AprioriCadenasWidget.py:$(ar_src)/apriori_cadenas.ui
-	pyuic5 $< -o $@
 .SILENT: run test build
