@@ -20,13 +20,14 @@ class Clusterer():
         data=self.data
         self.SSE=[]
         #Se comprueba de 2 a 12 grupos
-        #SE TIENE QUE PARALELIZAR
         for i in range(2,12):
             km=KMeans(n_clusters=i,random_state=0)
             km.fit(data)
             self.SSE.append(km.inertia_)
         self.knee_loc=KneeLocator(range(2,12),self.SSE,curve='convex',
                                     direction='decreasing').knee
+        self.num_clusters=self.knee_loc
+
     def calcular_clusters(self):
         #Se tiene que paralelizar
         data=self.data

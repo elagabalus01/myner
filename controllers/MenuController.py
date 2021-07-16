@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QFileDialog,QMessageBox
+from PyQt5.QtWidgets import QFileDialog,QMessageBox,QMessageBox
 from PyQt5.QtGui import QKeySequence
 from model import DataAdapter
 from pandas.errors import ParserError
@@ -42,34 +42,34 @@ class MenuController:
         file = QFileDialog.getOpenFileName(self.view,
             "Abrir archivo", "../datasets","Archivo de datos (*.csv)"
         )[0]
+        has_header=QMessageBox.question(self.view,"Abrir","¿Tiene cabecera?")
+        if has_header==QMessageBox.Yes:
+            print("Tiene cabecera")
+            has_header=True
+        elif has_header==QMessageBox.No:
+            print("No Tiene cabecera")
+            has_header=False
         if len(file)>0:
             self.view.tabWidget.hide()
             self.view.load_screen.show()
             self.loading_screen.open()
             # Cambiando el titulo de la ventana
             file_name=file.split('/')[-1]
-
-            # self.setWindowTitle(file_name)
-
-            # self.view.scroll_analisis.hide()
-            # self.view.progress_bar.show()
-            # self.view.progress_bar.setProperty("value", 0)
             try:
                 print("Comenzando carga de archivo")
                 self.read_thread=QThread()
                 self.read_worker=MyWorker(self.model)
                 self.read_worker.moveToThread(self.read_thread)
-                self.read_worker.set_file(file)
+                self.read_worker.set_file(file,has_header=has_header)
                 self.read_worker.complete.connect(self.read_thread.quit)
                 self.read_worker.complete.connect(self.read_worker.deleteLater)
                 self.read_thread.finished.connect(self.read_thread.deleteLater)
 
                 self.read_thread.started.connect(self.read_worker.read_file)
                 self.read_worker.complete.connect(self.model.notify_observers)
-
                 self.read_thread.start()
-                # self.model.loadFile(file)
-                # self.model.notify_observers()
+
+
             except FileNotFoundError:
                 self.show_error_popup("No se ha encontrado el archivo")
                 return

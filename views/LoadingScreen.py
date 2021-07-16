@@ -7,4 +7,4 @@ class LoadingScreen(QDialog,Ui_LoadingScreen):
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.setWindowFlags(Qt.Window|Qt.WindowTitleHint|Qt.CustomizeWindowHint)
+        # self.setWindowFlags(Qt.Window|Qt.WindowTitleHint|Qt.CustomizeWindowHint)

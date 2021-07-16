@@ -6,8 +6,8 @@ class AsociacionController(Observer):
         super().__init__(observable)
         self.model=observable
         self.view=view
-        apriori_view=AprioriCadenasWidget()
-        self.apriori_ctl=AprioriController(self.model,apriori_view)
+        # apriori_view=AprioriCadenasWidget()
+        self.apriori_ctl=AprioriController(self.model,self.view)
 
     def notify(self,model,*args,**kwargs):
         pass

@@ -36,12 +36,13 @@ class FS_Controller(Observer):
 
     def set_features(self):
         self.features_box=[]
-        cols=len(self.model.numeric_columns())
+        features=self.model.numeric_columns()+self.model.objects
+        cols=len(features)
         root=sqrt(cols)
         cols=floor(root)
         i=0
         j=0
-        for feature in self.model.numeric_columns():
+        for feature in features:
             feature=QCheckBox(feature,self.view)
             feature.setTristate(0)
             feature.setCheckState(2)
@@ -69,10 +70,14 @@ class FS_Controller(Observer):
             if kwargs['msg']=='UPDATE':
                 print("Es una actualización del modelo")
         else:
-            self.set_features()
-            self.ctl_visual.set_model()
-            self.view.loaded.emit(10)
-            self.ctl_corr.show_heatmap()
-            self.view.loaded.emit(10)
-            self.ctl_pca.set_model()
-            self.view.loaded.emit(10)
+            if len(self.model.numeric_columns())>0:
+                self.set_features()
+                self.ctl_visual.set_model()
+                self.view.loaded.emit(10)
+                self.ctl_corr.show_heatmap()
+                self.view.loaded.emit(10)
+                self.ctl_pca.set_model()
+                self.view.loaded.emit(10)
+            else:
+                print("No tiene características cuantitativas")
+                self.view.loaded.emit(30)

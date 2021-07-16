@@ -10,6 +10,7 @@ from .kmeans import KmeansController
 from views import KmeansWidget
 from .Asociacion import AsociacionController
 from views import AprioriWidget
+from views import AprioriCadenasWidget
 class MainController:
     def __init__(self):
         # self.model=model
@@ -39,7 +40,7 @@ class MainController:
         km_view.loaded.connect(self.menu_controller.aumentar_carga)
 
         # AGREGANDO MODULO DE REGLAS DE ASOCIaCION
-        ar_view=AprioriWidget()
+        ar_view=AprioriCadenasWidget()
         self.view.tabWidget.insertTab(4,ar_view,"Reglas de asocicion")
         self.ar_ctl=AsociacionController(self.model,ar_view)
         ar_view.loaded.connect(self.menu_controller.aumentar_carga)

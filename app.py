@@ -1,8 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 from controllers import MainController
-# import qdarkstyle
-# import QBreeze.qbreeze_resources
 import res.breeze_rc
 
 from PyQt5 import QtCore
