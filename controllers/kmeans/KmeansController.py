@@ -43,6 +43,8 @@ class KmeansController(Observer):
             self.set_model()
             self.ctl_elbow.calcular_elbow()
             self.ctl_clusters.load_model()
+            self.view.scrollArea.show()
         else:
             print("No tiene datos númericos")
+            self.view.scrollArea.hide()
             self.end_loading(100)

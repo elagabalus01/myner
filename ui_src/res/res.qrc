@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="img">
     <file>img/arrow_back.png</file>
+    <file>img/myner_data_mining_tool.png</file>
     <file>img/arrow_ford.png</file>
     <file>img/icon.png</file>
   </qresource>

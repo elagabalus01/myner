@@ -77,7 +77,9 @@ class FS_Controller(Observer):
                 self.ctl_corr.show_heatmap()
                 self.view.loaded.emit(10)
                 self.ctl_pca.set_model()
+                self.view.scrollArea.show()
                 self.view.loaded.emit(10)
             else:
                 print("No tiene características cuantitativas")
+                self.view.scrollArea.hide()
                 self.view.loaded.emit(30)

@@ -44,6 +44,7 @@ class GraphController():
             for feature in self.model.numeric_columns():
                 self.view.features_box.addItem(feature)
             self.plot_hist_box()
+            self.view.graficas.show()
         else:
             print("No tiene datos númericos")
             self.view.graficas.hide()

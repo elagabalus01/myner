@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Minería de datos</string>
+   <string>MyNer</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res/res.qrc">
@@ -68,6 +68,19 @@
        <property name="bottomMargin">
         <number>5</number>
        </property>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="0" column="2">
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -82,36 +95,29 @@
         </spacer>
        </item>
        <item row="0" column="1">
-        <widget class="QProgressBar" name="progress_bar">
+        <widget class="QLabel" name="logo">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
-           <height>16777215</height>
+           <width>500</width>
+           <height>404</height>
           </size>
          </property>
-         <property name="value">
-          <number>0</number>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="res/res.qrc">:/img/img/myner_data_mining_tool.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
          </property>
         </widget>
-       </item>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -124,7 +130,7 @@
      <x>0</x>
      <y>0</y>
      <width>716</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">

@@ -27,14 +27,14 @@ class MenuController:
 
     def aumentar_carga(self,valor):
         self.carga=self.carga+valor
-        self.view.progress_bar.setProperty("value",self.carga)
+        # self.view.progress_bar.setProperty("value",self.carga)
         self.loading_screen.loading_bar.setProperty("value",self.carga)
         if self.carga==100:
             self.view.load_screen.hide()
             self.view.tabWidget.show()
             self.loading_screen.close()
             self.carga=0
-            self.view.progress_bar.setProperty("value",self.carga)
+            # self.view.progress_bar.setProperty("value",self.carga)
             self.loading_screen.loading_bar.setProperty("value",self.carga)
 
 
@@ -42,20 +42,23 @@ class MenuController:
         file = QFileDialog.getOpenFileName(self.view,
             "Abrir archivo", "../datasets","Archivo de datos (*.csv)"
         )[0]
-        has_header=QMessageBox.question(self.view,"Abrir","¿Tiene cabecera?")
-        if has_header==QMessageBox.Yes:
-            print("Tiene cabecera")
-            has_header=True
-        elif has_header==QMessageBox.No:
-            print("No Tiene cabecera")
-            has_header=False
         if len(file)>0:
+            
+            has_header=QMessageBox.question(self.view,"Abrir","¿Tiene cabecera?")
+            if has_header==QMessageBox.Yes:
+                print("Tiene cabecera")
+                has_header=True
+            elif has_header==QMessageBox.No:
+                print("No Tiene cabecera")
+                has_header=False
+
             self.view.tabWidget.hide()
             self.view.load_screen.show()
             self.loading_screen.open()
             # Cambiando el titulo de la ventana
             file_name=file.split('/')[-1]
             try:
+                self.view.setWindowTitle(f"MyNer - {file_name}")
                 print("Comenzando carga de archivo")
                 self.read_thread=QThread()
                 self.read_worker=MyWorker(self.model)
@@ -97,6 +100,9 @@ class MenuController:
     def closeFile(self):
         self.file=None
         self.datos=None
+        self.view.tabWidget.hide()
+        self.view.load_screen.show()
+        self.view.setWindowTitle("MyNer")
         # self.set_analisis_exploratorio()
         # self.set_graphics()
 
@@ -108,7 +114,7 @@ class MenuController:
         self.model.file=None
         # self.view.progress_bar.hide()
         # self.view.scroll_analisis.hide()
-        self.view.setWindowTitle("Minería de datos")
+        self.view.setWindowTitle("MyNer")
         error_message=QMessageBox()
         error_message.critical(self.view,"Error",message)
         error_message.setFixedSize(500,200)
