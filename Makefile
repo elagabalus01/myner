@@ -1,14 +1,14 @@
-views=./views
+views=./src/views
+src=./ui_src
+res=./src/res
 fs_view=$(views)/FS
 eda_view=$(views)/EDA
-src=./ui_src
 fs_src=$(src)/FS
 eda_src=$(src)/EDA
 km_view=$(views)/Kmeans
 km_src=$(src)/kmeans
 ar_src=$(src)/Asociacion
 ar_view=$(views)/Asociacion
-res=./res
 my_res_src=$(src)/res/res.qrc
 breeze_res_src=$(src)/QBreeze/qbreeze.qrc
 
@@ -36,11 +36,11 @@ rebuild:build build_res run
 
 run:
 	echo "Corriendo el programa"
-	python -B app.py
+	python -B ./src/app.py
 
 test: build
 	echo "Realizando las pruebas"
-	python -B test.py
+	python -B ./src/test.py
 
 build:$(app_views)  $(fs_views) ${eda_views} ${km_views} $(ar_views) ${resources}
 	echo "Actualizando la interfaz"
