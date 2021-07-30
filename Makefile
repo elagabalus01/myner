@@ -9,6 +9,8 @@ km_view=$(views)/Kmeans
 km_src=$(src)/kmeans
 ar_src=$(src)/Asociacion
 ar_view=$(views)/Asociacion
+reg_src=$(src)/Regression
+reg_view=$(views)/Regression
 my_res_src=$(src)/res/res.qrc
 breeze_res_src=$(src)/QBreeze/qbreeze.qrc
 
@@ -31,6 +33,10 @@ km_views=$(km_view)/Ui_ElbowWidget.py\
 
 ar_views=$(ar_view)/Ui_AprioriWidget.py
 
+reg_views=$(reg_view)/Ui_RegressionWidget.py\
+		$(reg_view)/Ui_RegressionConfWidget.py\
+		$(reg_view)/Ui_PredictionWidget.py
+
 
 rebuild:build build_res run
 
@@ -42,7 +48,7 @@ test: build
 	echo "Realizando las pruebas"
 	python -B ./src/test.py
 
-build:$(app_views)  $(fs_views) ${eda_views} ${km_views} $(ar_views) ${resources}
+build:$(app_views)  $(fs_views) ${eda_views} ${km_views} $(ar_views) $(reg_views) ${resources}
 	echo "Actualizando la interfaz"
 
 build_res: $(resources)
@@ -84,6 +90,15 @@ $(km_view)/Ui_ClustersWidget.py:$(km_src)/clusters.ui
 	pyuic5 $< -o $@ --import-from=res
 
 $(ar_view)/Ui_AprioriWidget.py:$(ar_src)/apriori.ui
+	pyuic5 $< -o $@
+
+$(reg_view)/Ui_RegressionWidget.py:$(reg_src)/Regression.ui
+	pyuic5 $< -o $@
+
+$(reg_view)/Ui_RegressionConfWidget.py:$(reg_src)/RegressionConf.ui
+	pyuic5 $< -o $@
+
+$(reg_view)/Ui_PredictionWidget.py:$(reg_src)/Prediction.ui
 	pyuic5 $< -o $@
 
 .SILENT: run test build

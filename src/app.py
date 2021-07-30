@@ -4,6 +4,8 @@ from controllers import MainController
 import res.breeze_rc
 
 from PyQt5 import QtCore
+from matplotlib import use as matplotlib_bakend
+matplotlib_bakend('Qt5Agg')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

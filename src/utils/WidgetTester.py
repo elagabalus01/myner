@@ -3,11 +3,12 @@ from controllers.kmeans import KmeansController
 from controllers.EDA import EDA_Controller
 from controllers.FS import FS_Controller
 from controllers.Asociacion import AsociacionController
+from controllers.Regression import RegressionController
 from views import KmeansWidget
 from views import EDA_Widget
 from views import FeatureSelectionWidget
 from views import AprioriWidget
-from views import AprioriCadenasWidget
+from views import RegressionWidget
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget
 from model import DataAdapter
@@ -31,7 +32,7 @@ class WidgetTester(QMainWindow):
     def __init__(self,widget,witget_ctl):
         super().__init__(None)
         self.setupUi()
-        self.model=DataAdapter('../datasets/movies.csv')
+        self.model=DataAdapter('../datasets/WDBCOriginal.csv')
         w_view=eval(widget)()
         self.w_ctl=eval(witget_ctl)(self.model,w_view)
         self.gridLayout.addWidget(w_view, 0, 0)

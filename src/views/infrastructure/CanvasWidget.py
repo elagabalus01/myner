@@ -18,6 +18,3 @@ class CanvasWidget(FigureCanvasQTAgg):
             axis.redraw_in_frame()
         except AttributeError:
             print("No tenía caché")
-
-
-

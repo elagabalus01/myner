@@ -1,6 +1,5 @@
 import numpy
 import seaborn as sns
-
 class GraphController():
     def __init__(self,model,view):
         self.model=model

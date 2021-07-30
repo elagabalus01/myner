@@ -10,6 +10,8 @@ from .kmeans import KmeansController
 from views import KmeansWidget
 from .Asociacion import AsociacionController
 from views import AprioriWidget
+from .Regression import RegressionController
+from views import RegressionWidget
 class MainController:
     def __init__(self):
         # self.model=model
@@ -44,6 +46,11 @@ class MainController:
         self.ar_ctl=AsociacionController(self.model,ar_view)
         ar_view.loaded.connect(self.menu_controller.aumentar_carga)
 
+        # AGREGANDO MODULO DE PREDICCIÓN
+        reg_view=RegressionWidget()
+        self.view.tabWidget.insertTab(5,reg_view,"Predicción")
+        self.ar_ctl=RegressionController(self.model,reg_view)
+        reg_view.loaded.connect(self.menu_controller.aumentar_carga)
 
     def run(self):
         self.view.showMaximized()

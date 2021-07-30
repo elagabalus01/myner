@@ -9,3 +9,6 @@ from .Kmeans.ElbowWidget import ElbowWidget
 from .Kmeans.KmeansWidget import KmeansWidget
 from .Kmeans.ClustersWidget import ClustersWidget
 from .Asociacion.AprioriWidget import AprioriWidget
+from .Regression.PredictionWidget import PredictionWidget
+from .Regression.RegressionWidget import RegressionWidget
+from .Regression.RegressionConfWidget import RegressionConfWidget

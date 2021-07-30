@@ -37,12 +37,21 @@ class DataAdapter(Observable):
         self._limpiar_datos()
 
     def _limpiar_datos(self):
+        filtered_numeric=[feature for feature in self.filtered if feature in self.num_cols]
+        filtered_objects=[feature for feature in self.filtered if feature in self.objects]
+
         self.clean_data=self.data
-        if len(self.filtered)>0:
-            self.clean_data=self.clean_data.drop(self.filtered,axis=1)
         self.clean_data=self.clean_data.drop(self.str_cols,axis=1)
+
         self.clean_numeric_data=self.clean_data.drop(self.objects,axis=1)
         self.clean_numeric_data=self.clean_numeric_data.dropna()
+
+        if len(filtered_objects)>0:
+            self.clean_data=self.clean_data.drop(filtered_objects,axis=1)
+
+        
+        if len(filtered_numeric)>0:
+            self.clean_numeric_data=self.clean_numeric_data.drop(filtered_numeric,axis=1)
 
     def filter_columns(self,filtered:list):
         self.filtered=filtered
