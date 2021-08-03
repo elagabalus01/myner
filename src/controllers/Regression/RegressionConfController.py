@@ -1,54 +1,49 @@
-from sklearn import model_selection
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import accuracy_score
-import numpy as np
+from PyQt5.QtCore import QThread
+from PyQt5.QtWidgets import QFileDialog,QMessageBox,QMessageBox
+from .ClassifierWorker import ClassifierWorker
 class RegressionConfController:
-    def __init__(self,model,view,clasifier):
+    def __init__(self,model,view,classifier):
         self.model=model
         self.view=view
-        self.clasifier=clasifier
+        self.classifier=classifier
+        self.model_thread=None
+        self.classifier_worker=None
         self.bind_signals()
+
+    def disable_user_input(self):
+        self.view.btn_calcular.setDisabled(True)
+
+    def enable_user_input(self):
+        self.view.btn_calcular.setDisabled(False)
 
     def bind_signals(self):
         self.view.btn_calcular.pressed.connect(self.generar_modelo)
+        self.view.btn_calcular.pressed.connect(self.disable_user_input)
 
     def generar_modelo(self):
-        test_persentage=self.view.test_percentage.value()/10
-        dependiente=self.view.features_box.currentText()
-        data=self.model.clean_numeric_data
-        all_data=self.model.data
-        if dependiente in data.columns:
-            X=data.drop([dependiente],axis=1)
-        else:
-            X=data
-        X=np.array(X)
+        self.classifier.test_percentage=self.view.test_percentage.value()/100
+        self.classifier.dependiente=self.view.features_box.currentText()
 
-        unique_values=all_data[dependiente].unique()
-        encoder={}
-        i=0
-        for value in unique_values:
-            encoder[value]=i
-            i+=1
-        Y=np.array(all_data[dependiente].replace(encoder))
-        print(Y)
-        
-        # X = np.array(data[['Texture', 'Area', 'Smoothness', 'Compactness', 'Symmetry', 'FractalDimension']])
-        # Y = np.array(data[['Diagnosis']]) 
-        seed=1234
-        X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y,
-            test_size=test_persentage,random_state=seed, shuffle = True)
-        print(X)
-        print(Y_train)
-        print(Y_validation)
-        self.clasifier.fit(X_train, Y_train)
+        self.model_thread=QThread()
+        self.classifier_worker=ClassifierWorker(self.classifier)
+        self.classifier_worker.moveToThread(self.model_thread)
+
+        self.model_thread.started.connect(self.classifier_worker.generar_modelo)
+        self.classifier_worker.model_created.connect(self.mostrar_mensaje)
+        self.classifier_worker.model_created.connect(self.enable_user_input)
+
+        self.classifier_worker.model_created.connect(self.model_thread.quit)
+        self.classifier_worker.model_created.connect(self.classifier_worker.deleteLater)
+        self.model_thread.finished.connect(self.model_thread.deleteLater)
+
+        self.model_thread.start()
+
+    def mostrar_mensaje(self):
+        error_message=QMessageBox()
+        error_message.critical(self.view,"Completado","Se terminó de calcular el modelo")
+        error_message.setFixedSize(500,200)
 
     def set_model(self):
         self.view.features_box.clear()
         for feature in self.model.objects:
             self.view.features_box.addItem(feature)
-
-
-
-
-

@@ -99,6 +99,6 @@ $(reg_view)/Ui_RegressionConfWidget.py:$(reg_src)/RegressionConf.ui
 	pyuic5 $< -o $@
 
 $(reg_view)/Ui_PredictionWidget.py:$(reg_src)/Prediction.ui
-	pyuic5 $< -o $@
+	pyuic5 $< -o $@ --import-from=res
 
 .SILENT: run test build

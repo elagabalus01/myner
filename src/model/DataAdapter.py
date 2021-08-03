@@ -18,6 +18,7 @@ class DataAdapter(Observable):
         self.clean_numeric_data=None
         self.num_cols=None
         self.str_cols=None
+        self.not_data_cols=None
         self.objects=None
         self.filtered=[]
         self.file=filepath
@@ -41,15 +42,15 @@ class DataAdapter(Observable):
         filtered_objects=[feature for feature in self.filtered if feature in self.objects]
 
         self.clean_data=self.data
-        self.clean_data=self.clean_data.drop(self.str_cols,axis=1)
+        self.clean_data=self.clean_data.drop(self.not_data_cols,axis=1)
 
-        self.clean_numeric_data=self.clean_data.drop(self.objects,axis=1)
+        self.clean_numeric_data=self.clean_data.drop(self.str_cols,axis=1)
         self.clean_numeric_data=self.clean_numeric_data.dropna()
 
         if len(filtered_objects)>0:
             self.clean_data=self.clean_data.drop(filtered_objects,axis=1)
 
-        
+
         if len(filtered_numeric)>0:
             self.clean_numeric_data=self.clean_numeric_data.drop(filtered_numeric,axis=1)
 
@@ -64,18 +65,23 @@ class DataAdapter(Observable):
         str_cols=[]
         num_cols=[]
         objects=[]
+        not_data=[]
         for feature in self.data.columns:
             #SUPONDO QUE NO SE PUEDEN PROCESAR OBJETOS
             if self.data[feature].dtype!='object':
+                if self.data[feature].nunique() <= 10:
+                    objects.append(feature)
                 num_cols.append(feature)
             else:
                 if self.data[feature].nunique() <= 10:
                     objects.append(feature)
                 else:
-                    str_cols.append(feature)
+                    not_data.append(feature)
+                str_cols.append(feature)
         self.num_cols=num_cols
         self.str_cols=str_cols
         self.objects=objects
+        self.not_data_cols=not_data
 
     def numeric_columns(self):
         return self.num_cols

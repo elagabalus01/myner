@@ -34,6 +34,13 @@ class FS_Controller(Observer):
     def set_current_method(self,index):
         self.view.method.setCurrentIndex(index)
 
+    def clear_features(self):
+        if len(self.features_box)>0:
+            for widget in self.features_box:
+                self.view.feature_grid.removeWidget(widget)
+                widget.setParent(None)
+            self.features_box=[]
+
     def set_features(self):
         self.features_box=[]
         features=self.model.numeric_columns()+self.model.objects
@@ -71,6 +78,7 @@ class FS_Controller(Observer):
                 print("Es una actualización del modelo")
         else:
             if len(self.model.numeric_columns())>0:
+                self.clear_features()
                 self.set_features()
                 self.ctl_visual.set_model()
                 self.view.loaded.emit(10)

@@ -32,13 +32,14 @@ class VisualEvaluationController:
         self.view.eje_x_box.clear()
         self.view.eje_y_box.clear()
         self.view.dependiente_box.clear()
+        dependiente=set()
+        merge_no_repit=lambda x,y:set(x).union(y)
 
-        for feature in self.model.objects:
+        for feature in merge_no_repit(self.model.objects,self.model.numeric_columns()):
             self.view.dependiente_box.addItem(feature)
 
         for feature in self.model.numeric_columns():
             self.view.eje_x_box.addItem(feature)
             self.view.eje_y_box.addItem(feature)
-            self.view.dependiente_box.addItem(feature)
 
         self.plot()
