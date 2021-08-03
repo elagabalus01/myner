@@ -19,6 +19,7 @@ class DataAdapter(Observable):
         self.num_cols=None
         self.str_cols=None
         self.not_data_cols=None
+        self.str_objects=None
         self.objects=None
         self.filtered=[]
         self.file=filepath
@@ -39,12 +40,12 @@ class DataAdapter(Observable):
 
     def _limpiar_datos(self):
         filtered_numeric=[feature for feature in self.filtered if feature in self.num_cols]
-        filtered_objects=[feature for feature in self.filtered if feature in self.objects]
+        filtered_objects=[feature for feature in self.filtered if feature in self.str_objects]
 
         self.clean_data=self.data
         self.clean_data=self.clean_data.drop(self.not_data_cols,axis=1)
 
-        self.clean_numeric_data=self.clean_data.drop(self.str_cols,axis=1)
+        self.clean_numeric_data=self.clean_data.drop(self.str_objects,axis=1)
         self.clean_numeric_data=self.clean_numeric_data.dropna()
 
         if len(filtered_objects)>0:
@@ -53,6 +54,7 @@ class DataAdapter(Observable):
 
         if len(filtered_numeric)>0:
             self.clean_numeric_data=self.clean_numeric_data.drop(filtered_numeric,axis=1)
+            self.clean_data=self.clean_data.drop(filtered_numeric,axis=1)
 
     def filter_columns(self,filtered:list):
         self.filtered=filtered
@@ -66,6 +68,7 @@ class DataAdapter(Observable):
         num_cols=[]
         objects=[]
         not_data=[]
+        str_objects=[]
         for feature in self.data.columns:
             #SUPONDO QUE NO SE PUEDEN PROCESAR OBJETOS
             if self.data[feature].dtype!='object':
@@ -75,13 +78,15 @@ class DataAdapter(Observable):
             else:
                 if self.data[feature].nunique() <= 10:
                     objects.append(feature)
+                    str_objects.append(feature)
                 else:
                     not_data.append(feature)
-                str_cols.append(feature)
+                # str_cols.append(feature)
         self.num_cols=num_cols
-        self.str_cols=str_cols
+        # self.str_cols=str_cols
         self.objects=objects
         self.not_data_cols=not_data
+        self.str_objects=str_objects
 
     def numeric_columns(self):
         return self.num_cols

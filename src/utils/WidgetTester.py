@@ -32,7 +32,8 @@ class WidgetTester(QMainWindow):
     def __init__(self,widget,witget_ctl):
         super().__init__(None)
         self.setupUi()
-        self.model=DataAdapter('../datasets/WDBCOriginal.csv')
+        file='../datasets/Hipoteca.csv'
+        self.model=DataAdapter(file)
         w_view=eval(widget)()
         self.w_ctl=eval(witget_ctl)(self.model,w_view)
         self.gridLayout.addWidget(w_view, 0, 0)

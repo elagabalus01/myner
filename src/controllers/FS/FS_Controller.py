@@ -43,7 +43,8 @@ class FS_Controller(Observer):
 
     def set_features(self):
         self.features_box=[]
-        features=self.model.numeric_columns()+self.model.objects
+        merge_no_repit=lambda x,y:set(x).union(y)
+        features=merge_no_repit(self.model.numeric_columns(),self.model.objects)
         cols=len(features)
         root=sqrt(cols)
         cols=floor(root)

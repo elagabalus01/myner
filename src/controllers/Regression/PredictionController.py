@@ -17,7 +17,14 @@ class PredictionController:
         self.bind_signals()
 
     def set_dependiente(self):
+        self.set_model()
         self.view.lab_variable.setText(self.classifier.dependiente)
+
+    def disable_user_input(self):
+        self.view.btn_prediction.setDisabled(True)
+
+    def enable_user_input(self):
+        self.view.btn_prediction.setDisabled(False)
 
     def bind_signals(self):
         self.view.btn_prediction.pressed.connect(self.make_prediction)
@@ -39,7 +46,9 @@ class PredictionController:
         self.classifier_worker.moveToThread(self.prediction_thread)
 
         self.prediction_thread.started.connect(self.classifier_worker.calcular_prediccion)
+        self.classifier_worker.prediction_calculated.connect(self.disable_user_input)
         self.classifier_worker.prediction_calculated.connect(self.show_prediction)
+        self.classifier_worker.prediction_calculated.connect(self.enable_user_input)
 
         self.classifier_worker.prediction_calculated.connect(self.prediction_thread.quit)
         self.classifier_worker.prediction_calculated.connect(self.classifier_worker.deleteLater)
@@ -61,6 +70,7 @@ class PredictionController:
 
     def set_model(self):
         self.clear_layout()
+        self.view.lab_resultado.setText("RESULTADO")
         data=self.model.clean_numeric_data
         features=data.columns
         cols=len(features)
@@ -68,6 +78,7 @@ class PredictionController:
         cols=floor(root)
         i=0
         j=0
+        features=[feature for feature in features if feature!=self.classifier.dependiente]
         for feature in features:
             label=self.labels[str(feature)]=QtWidgets.QLabel(str(feature),self.view)
             feature=self.inputs[str(feature)]=QtWidgets.QDoubleSpinBox(self.view)

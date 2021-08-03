@@ -29,7 +29,7 @@ class ElbowController:
         view=self.view
         view.graph.clear_axis(view.ax)
         view.ax.plot(range(2, 12),SSE, marker='o')
-        view.ax.set_xlabel('Cantidad de clusters *k*')
+        view.ax.set_xlabel('Número de clusters')
         view.ax.set_ylabel('SSE')
         view.ax.set_title('Elbow Method')
         view.ax.vlines(
