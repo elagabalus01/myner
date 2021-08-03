@@ -19,12 +19,13 @@ class Classifier():
         if self.model and self.dependiente and self.test_percentage:
             dependiente=self.dependiente
             data=self.model.clean_numeric_data
-            all_data=self.model.data
+            all_data=self.model.clean_data
             test_percentage=self.test_percentage
             if dependiente in data.columns:
                 X=data.drop([dependiente],axis=1)
             else:
                 X=data
+            print(X.shape)
             X=np.array(X)
 
             unique_values=all_data[dependiente].unique()
@@ -33,7 +34,10 @@ class Classifier():
             for value in unique_values:
                 encoder[value]=i
                 i+=1
-            Y=np.array(all_data[dependiente].replace(encoder))
+            all_data=all_data.dropna()
+            Y=all_data[dependiente]
+            print(Y.shape)
+            Y=np.array(Y.replace(encoder))
             seed=1234
             X_train, X_validation, Y_train, Y_validation = train_test_split(
                 X, Y, test_size=test_percentage,

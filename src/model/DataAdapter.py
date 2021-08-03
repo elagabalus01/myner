@@ -44,9 +44,10 @@ class DataAdapter(Observable):
 
         self.clean_data=self.data
         self.clean_data=self.clean_data.drop(self.not_data_cols,axis=1)
+        self.clean_data=self.clean_data.dropna()
 
         self.clean_numeric_data=self.clean_data.drop(self.str_objects,axis=1)
-        self.clean_numeric_data=self.clean_numeric_data.dropna()
+        # self.clean_numeric_data=self.clean_numeric_data.dropna()
 
         if len(filtered_objects)>0:
             self.clean_data=self.clean_data.drop(filtered_objects,axis=1)
