@@ -94,6 +94,6 @@ class DataAdapter(Observable):
 
     def numeric_data(self):
         numeric_data=self.data
-        numeric_data=numeric_data.drop(self.str_cols+self.objects,axis=1)
+        numeric_data=numeric_data.drop(self.str_objects+self.not_data_cols,axis=1)
         numeric_data=numeric_data.dropna()
         return numeric_data
