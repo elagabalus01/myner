@@ -81,6 +81,6 @@ class Ui_PCA(object):
     def retranslateUi(self, PCA):
         _translate = QtCore.QCoreApplication.translate
         PCA.setWindowTitle(_translate("PCA", "Form"))
-        self.label.setText(_translate("PCA", "Variable dependienete"))
+        self.label.setText(_translate("PCA", "Variable dependiente"))
         self.features_box.setItemText(0, _translate("PCA", "Ninguna"))
         self.btn_calcular.setText(_translate("PCA", "Calcular"))

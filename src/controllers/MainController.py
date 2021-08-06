@@ -42,7 +42,7 @@ class MainController:
 
         # AGREGANDO MODULO DE REGLAS DE ASOCIaCION
         ar_view=AprioriWidget()
-        self.view.tabWidget.insertTab(4,ar_view,"Reglas de asocicion")
+        self.view.tabWidget.insertTab(4,ar_view,"Reglas de asociación")
         self.ar_ctl=AsociacionController(self.model,ar_view)
         ar_view.loaded.connect(self.menu_controller.aumentar_carga)
 
